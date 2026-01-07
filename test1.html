@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class XI & XII Result by Vikram Sir</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 100%;
+      margin: auto;
+      box-sizing: border-box;
+    }
+    h1 {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
+    h2 {
+      text-align: center;
+      margin-top: 0;
+      font-weight: normal;
+      font-size: 16px;
+    }
+    .logo {
+      display: block;
+      margin: auto;
+      width: 100px;
+      height: auto;
+    }
+    .input-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+    input {
+      padding: 8px;
+      width: 100%;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    .result-card {
+      margin-top: 30px;
+      border: 1px solid #ccc;
+      padding: 15px;
+      display: none;
+      border-radius: 8px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 6px;
+    }
+    .label {
+      font-weight: bold;
+    }
+    .value {
+      padding: 4px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    td {
+      padding: 6px;
+      border: 1px solid #999;
+    }
+    .footer {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .footer div {
+      flex: 1;
+      min-width: 120px;
+      font-size: 14px;
+    }
+    @media print {
+      button { display: none; }
+      input, label { display: none; }
+    }
+  </style>
+</hea
+  <img src="" alt="Institute Logo" class="Math" />
+  <h1>Test Series by Vikram Sir</h1>
+  <h2>(Maths by Vikram Sir)</h2>
+
+  <div class="input-group">
+    <label for="rollNo">Enter Roll No:</label>
+    <input type="text" id="rollNo" />
+  </div>
+  <div class="input-group">
+    <label for="rollCode">Enter Roll Code:</label>
+    <input type="text" id="rollCode" />
+  </div>
+  <button onclick="searchResult()">Check Result</button>
+
+  <div class="result-card" id="resultCard">
+    <h2>Student Result</h2>
+    <div class="field"><div class="label">Name:</div><div class="value" id="name"></div></div>
+    <div class="field"><div class="label">Father's Name:</div><div class="value" id="father"></div></div>
+    <div class="field"><div class="label">Mother's Name:</div><div class="value" id="mother"></div></div>
+    <div class="field"><div class="label">Roll No:</div><div class="value" id="rno"></div></div>
+    <div class="field"><div class="label">Roll Code:</div><div class="value" id="rcode"></div></div>
+
+    <table>
+      <tr><td>Test Name</td><td id="testname"></td></tr>
+      <tr><td>Total Marks</td><td id="totalmarks"></td></tr>
+      <tr><td>Marks Obtained</td><td id="marks"></td></tr>
+      <tr><td>Percentage</td><td id="percent"></td></tr>
+      <tr><td>Rank</td><td id="rank"></td></tr>
+      <tr><td>Remarks</td><td id="remarks"></td></tr>
+    </table>
+
+    <div class="footer">
+      <div>
+        <div>Date: <span id="date"></span></div>
+        <div>Place: <span id="place"></span></div>
+      </div>
+      <div style="text-align: center;">
+        <div>Seal of Institution</div><br/>
+        <div>Signature of Teacher</div>
+      </div>
+    </div>
+
+    <button onclick="window.print()">Print Result</button>
+  </div>
+
+  <script>
+    const students = [
+  {
+    "roll_no": 10293,
+    "roll_code": 25033,
+    "name": "PREM KUMAR SHARMA",
+    "father": "ANIL KUMAR SHARMA",
+    "mother": "ELACHU DEVI",
+    "test_name": "Class 12 1ST SUPER TEST",
+    "total_marks": 80,
+    "marks_obtained": 70,
+    "percentage": "88%",
+    "rank": 1,
+    "remarks": "good",
+    "date": "04-01-2026",
+    "place": "Bokaro"
+  },
+  {
+    "roll_no": 10007,
+    "roll_code": 25033,
+    "name": "SADHAN MAHATHA",
+    "father": "MURLI DHAR MAHATHA",
+    "mother": "RITA DEVI",
+    "test_name": "Class 12 1ST SUPER TEST",
+    "total_marks": 80,
+    "marks_obtained": 38,
+    "percentage": "48%",
+    "rank": 13,
+    "remarks": "try harder",
+    "date": "04-01-2026",
+    "place": "Bokaro"
+  },
+  {
+    "roll_no": 10155,
+    "roll_code": 25033,
+    "name": "AKASH MAHATHA",
+    "father": "ARJUN MAHATHA",
+    "mother": "UJALA DEVI",
+    "test_name": "Class 12 1ST SUPER TEST",
+    "total_marks": 80,
+    "marks_obtained": 51,
+    "percentage": "64%",
+    "rank": 8,
+    "remarks": "try harder",
+    "date": "04-01-2026",
+    "place": "Bokaro"
+  },
+  {
+    "roll_no": 10203,
+    "roll_code": 25033,
+    "name": "MADHUSUDAN CHOUDHARY",
+    "father": "MOHAN LAL CHOUDHARY",
+    "mother": "SAMPURA DEVI",
+    "test_name": "Class 12 1ST SUPER TEST",
+    "total_marks": 80,
+    "marks_obtained": 32,
+    "percentage": "40%",
+    "rank": 19,
+    "remarks": "try harder",
+    "date": "04-01-2026",
+    "place": "Bokaro"
+  },
+  {
+    "roll_no": 10048,
+    "roll_code": 25033,
+    "name": "DHIRAJ KUMAR MAHATHA",
+    "father": "BISHNU MAHATHA",
+    "mother": "GAYATRI DEVI",
+    "test_name": "Class 12 1ST SUPER TEST",
+    "total_marks": 80,
+    "marks_obtained": 64,
+    "percentage": "80%",
+    "rank": 2,
+    "remarks": "good",
+    "date": "04-01-2026",
+    "place": "Bokaro"
+  },
+  {
+    "roll_no": 10484,
+    "roll_code": 25033,
+    "name": "KARAN KUMAR GORAIN",
+    "father": "RAJU GORAIN",
+    "mother": "TULA DEVI",
+    "test_name": "Class 12 1ST SUPER TEST",
+    "total_marks": 80,
+    "marks_obtained": 59,
+    "percentage": "74%",
+    "rank": 3,
+    "remarks": "try harder",
+    "date": "04-01-2026",
+    "place": "Bokaro"
+  },
+  {
+    "roll_no": 10476,
+    "roll_code": 25033,
+    "name": "AMIT CHOUDHARY",
+    "father": "RATU LAL CHOUDHARY",
+    "mother": "BABITA DEVI",
+    "test_name": "Class 12 1ST SUPER TEST",
+    "total_marks": 80,
+    "marks_obtained": 37,
+    "percentage": "46%",
+    "rank": 15,
+    "remarks": "try harder",
+    "date": "04-01-2026",
+    "place": "Bokaro"
+  },
+  {
+    "roll_no": 10480,
+    "roll_code": 25033,
+    "name": "DURGA CHARAN GORAIN",
+    "father": "KISHAN KUMAR GORAIN",
+    "mother": "KIRAN DEVI",
+    "test_name": "Class 12 1ST SUPER TEST",
+    "total_marks": 80,
+    "marks_obtained": 48,
+    "percentage": "60%",
+    "rank": 9,
+    "remarks": "try harder",
+    "date": "04-01-2026",
+    "place": "Bokaro"
+  },
+  {
+    "roll_no": 10359,
+    "roll_code": 25033,
+    "name": "PUJA KUMARI",
+    "father": "KISHAN MAHATO",
+    "mother": "ANITA DEVI",
+    "test_name": "Class 12 1ST SUPER TEST",
+    "total_marks": 80,
+    "marks_obtained": 24,
+    "percentage": "30%",
+    "rank": 25,
+    "remarks": "try harder",
+    "date": "04-01-2026",
+    "place": "Bokaro"
+  },
+  {
+    "roll_no": 125,
+    "roll_code": 25033,
+    "name": "SRIRAM SHARMA",
+    "father": "PANCHANAN SHARMA",
+    "mother": "SANTOSHI DEVI",
+    "test_name": "Class 12 1ST SUPER TEST",
+    "total_marks": 80,
+    "marks_obtained": 0,
+    "percentage": "0%",
+    "rank": 31,
+    "remarks": "try harder",
+    "date": "04-01-2026",
+    "place": "Bokaro"
+  },
+  {
+    "roll_no": 10033,
+    "roll_code": 25037,
+    "name": "ANKIT ROY",
+    "father": "ASHISH KUMAR ROY",
+    "mother": "NAMITA DEVI",
+    "test_name": "Class 12 1ST SUPER TEST",
+    "total_marks": 80,
+    "marks_obtained": 55,
+    "percentage": "69%",
+    "rank": 6,
+    "remarks": "try harder",
+    "date": "04-01-2026",
+    "place": "Bokaro"
+  },
+  {
+    "roll_no": 10140,
+    "roll_code": 25033,
+    "name": "VIVEK KUMAR MAHATO",
+    "father": "PARIKSHIT MAHATO",
+    "mother": "RITA DEVI",
+    "test_name": "Class 12 1ST SUPER TEST",
+    "total_marks": 80,
+    "marks_obtained": 57,
+    "percentage": "71%",
+    "rank": 4,
+    "remarks": "try harder",
+    "date": "04-01-2026",
+    "place": "Bokaro"
+  }
+];
+
+    function searchResult() {
+      const rollNo = document.getElementById('rollNo').value.trim();
+      const rollCode = document.getElementById('rollCode').value.trim();
+      const student = students.find(s => String(s.roll_no) === rollNo && String(s.roll_code) === rollCode);
+
+      if (!student) {
+        alert('No matching record found. Please check Roll No and Roll Code.');
+        document.getElementById('resultCard').style.display = 'none';
+        return;
+      }
+
+      document.getElementById('name').textContent = student.name;
+      document.getElementById('father').textContent = student.father;
+      document.getElementById('mother').textContent = student.mother;
+      document.getElementById('rno').textContent = student.roll_no;
+      document.getElementById('rcode').textContent = student.roll_code;
+      document.getElementById('testname').textContent = student.test_name;
+      document.getElementById('totalmarks').textContent = student.total_marks;
+      document.getElementById('marks').textContent = student.marks_obtained;
+      document.getElementById('percent').textContent = student.percentage;
+      document.getElementById('rank').textContent = student.rank;
+      document.getElementById('remarks').textContent = student.remarks;
+      document.getElementById('date').textContent = student.date;
+      document.getElementById('place').textContent = student.place;
+
+      document.getElementById('resultCard').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>test result compare</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{font-family:Arial;background:#f2f2f2;padding:15px}
+.container{max-width:520px;margin:auto;background:#fff;padding:15px;border-radius:10px}
+h2{text-align:center}
+input,select,button{width:100%;padding:10px;margin-top:10px;font-size:16px}
+button{background:#4CAF50;color:#fff;border:none;border-radius:5px}
+table{width:100%;border-collapse:collapse;margin-top:15px}
+td,th{border:1px solid #ccc;padding:8px;text-align:center}
+.status{text-align:center;font-weight:bold;margin-top:10px}
+canvas{margin-top:20px}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>MATHEMATICS CLASSES BY VIKRAM SIR</h2>
+
+<input id="rollNo" placeholder="Roll No">
+<input id="rollCode" placeholder="Roll Code">
+
+<select id="graphType">
+<option value="bar">Bar Graph</option>
+<option value="line">Line Graph</option>
+</select>
+
+<button onclick="compare()">Compare</button>
+
+<div id="result" style="display:none">
+<h3 id="name" style="text-align:center"></h3>
+
+<table>
+<tr><th>Test</th><th>Marks</th><th>Percentage</th></tr>
+<tr><td>Test 1</td><td id="m1"></td><td id="p1"></td></tr>
+<tr><td>Test 2</td><td id="m2"></td><td id="p2"></td></tr>
+</table>
+
+<div class="status" id="status"></div>
+<canvas id="chart"></canvas>
+</div>
+</div>
+
+<script>
+// ================= TEST 1 (ALL STUDENTS) =================
+const test1 = [
+{roll_no:10293,roll_code:25033,name:"PREM KUMAR SHARMA",marks:70,total:80},
+{roll_no:10007,roll_code:25033,name:"SADHAN MAHATHA",marks:38,total:80},
+{roll_no:10155,roll_code:25033,name:"AKASH MAHATHA",marks:51,total:80},
+{roll_no:10203,roll_code:25033,name:"MADHUSUDAN CHOUDHARY",marks:32,total:80},
+{roll_no:10048,roll_code:25033,name:"DHIRAJ KUMAR MAHATHA",marks:64,total:80},
+{roll_no:10375,roll_code:25037,name:"PRADUM RAJWAR",marks:47,total:80},
+{roll_no:10484,roll_code:25033,name:"KARAN KUMAR GORAIN",marks:59,total:80},
+{roll_no:10476,roll_code:25033,name:"AMIT CHOUDHARY",marks:37,total:80},
+{roll_no:10480,roll_code:25033,name:"DURGA CHARAN GORAIN",marks:48,total:80},
+{roll_no:10458,roll_code:25033,name:"SWITI MAHATHA",marks:47,total:80},
+{roll_no:10359,roll_code:25033,name:"PUJA KUMARI",marks:24,total:80},
+{roll_no:116,roll_code:25033,name:"VISHAL KUMAR",marks:25,total:80},
+{roll_no:10479,roll_code:25033,name:"BITTU KUMAR",marks:20,total:80},
+{roll_no:10174,roll_code:25033,name:"PANKAJ KUMAR",marks:23,total:80},
+{roll_no:10301,roll_code:25033,name:"CHANDAN SAHU",marks:15,total:80},
+{roll_no:10438,roll_code:25033,name:"LAXMAN KUMAR",marks:37,total:80},
+{roll_no:10295,roll_code:25037,name:"PRAMOD KUMAR",marks:42,total:80},
+{roll_no:10129,roll_code:25033,name:"JAGJEET MAHATHA",marks:57,total:80},
+{roll_no:10298,roll_code:25033,name:"ROHIT GORAIN",marks:28,total:80},
+{roll_no:10375,roll_code:25033,name:"PREM KUMAR MAHATO",marks:35,total:80},
+{roll_no:22640227,roll_code:0,name:"SHIV KUMAR",marks:38,total:80},
+{roll_no:10245,roll_code:25033,name:"VISHAL KUMAR",marks:52,total:80},
+{roll_no:10033,roll_code:25037,name:"ANKIT ROY",marks:55,total:80},
+{roll_no:10140,roll_code:25033,name:"VIVEK KUMAR MAHATHA",marks:57,total:80},
+{roll_no:22640229,roll_code:0,name:"BABITA KUMARI",marks:26,total:80},
+{roll_no:10080,roll_code:25033,name:"RAKESH KUMAR SHARMA",marks:24,total:80},
+{roll_no:10372,roll_code:25033,name:"KRISHNA JHA",marks:22,total:80}
+];
+
+// ================= TEST 2 (ALL STUDENTS) =================
+const test2 = [
+{roll_no:10293,roll_code:25033,name:"PREM KUMAR SHARMA",marks:64,total:80},
+{roll_no:10007,roll_code:25033,name:"SADHAN MAHATHA",marks:21,total:80},
+{roll_no:10203,roll_code:25033,name:"MADHUSUDAN CHOUDHARY",marks:13,total:80},
+{roll_no:10048,roll_code:25033,name:"DHIRAJ KUMAR MAHATHA",marks:55,total:80},
+{roll_no:10484,roll_code:25033,name:"KARAN KUMAR GORAIN",marks:36,total:80},
+{roll_no:10476,roll_code:25033,name:"AMIT CHOUDHARY",marks:41,total:80},
+{roll_no:10480,roll_code:25033,name:"DURGA CHARAN GORAIN",marks:44,total:80},
+{roll_no:10458,roll_code:25033,name:"SWITI MAHATHA",marks:66,total:80},
+{roll_no:10359,roll_code:25033,name:"PUJA KUMARI",marks:31,total:80},
+{roll_no:10479,roll_code:25033,name:"BITTU KUMAR",marks:14,total:80},
+{roll_no:10301,roll_code:25033,name:"CHANDAN SAHU",marks:8,total:80},
+{roll_no:10438,roll_code:25033,name:"LAXMAN KUMAR",marks:34,total:80},
+{roll_no:10295,roll_code:25037,name:"PRAMOD KUMAR",marks:38,total:80},
+{roll_no:10129,roll_code:25033,name:"JAGJEET MAHATHA",marks:55,total:80},
+{roll_no:10298,roll_code:25033,name:"ROHIT GORAIN",marks:11,total:80},
+{roll_no:22640227,roll_code:0,name:"SHIV KUMAR",marks:16,total:80},
+{roll_no:10245,roll_code:25033,name:"VISHAL KUMAR",marks:50,total:80},
+{roll_no:10033,roll_code:25037,name:"ANKIT ROY",marks:49,total:80},
+{roll_no:10140,roll_code:25033,name:"VIVEK KUMAR MAHATHA",marks:45,total:80},
+{roll_no:22640229,roll_code:0,name:"BABITA KUMARI",marks:9,total:80},
+{roll_no:10080,roll_code:25033,name:"RAKESH KUMAR SHARMA",marks:12,total:80},
+{roll_no:10372,roll_code:25033,name:"KRISHNA JHA",marks:30,total:80}
+];
+
+let chart;
+
+function compare(){
+ const rno=rollNo.value.trim();
+ const rcode=rollCode.value.trim();
+ const t1=test1.find(s=>s.roll_no==rno&&s.roll_code==rcode);
+ if(!t1){alert("Not found in Test 1");return;}
+ const t2=test2.find(s=>s.roll_no==rno&&s.roll_code==rcode);
+
+ name.innerText=t1.name;
+ m1.innerText=t1.marks;
+ p1.innerText=((t1.marks/80)*100).toFixed(1)+"%";
+
+ if(t2){
+  m2.innerText=t2.marks;
+  p2.innerText=((t2.marks/80)*100).toFixed(1)+"%";
+  status.innerText=t2.marks>t1.marks?"📈 Improved":t2.marks<t1.marks?"📉 Dropped":"➖ Same";
+ }else{
+  m2.innerText="ABSENT";
+  p2.innerText="ABSENT";
+  status.innerText="❌ ABSENT in Test 2";
+ }
+
+ drawChart(t1.marks,t2?t2.marks:0,graphType.value);
+ result.style.display="block";
+}
+
+function drawChart(a,b,type){
+ if(chart)chart.destroy();
+ chart=new Chart(chartEl,{
+  type:type,
+  data:{labels:["Test 1","Test 2"],datasets:[{label:"Marks",data:[a,b],borderWidth:2,fill:false}]},
+  options:{scales:{y:{beginAtZero:true,max:80}}}
+ });
+}
+const chartEl=document.getElementById("chart");
+</script>
+
+</body>
+</html>

@@ -208,7 +208,8 @@
   {"roll_no":10115,"roll_code":25033,"name":"VIVEK KUMAR","father":"ASHOK KUMAR MAHTO","mother":"ANJU DEVI","test":"Class 11 SUPER TEST 3","total":40,"marks":18,"percentage":"45%","rank":"na","remark":"try harder","date":"08-02-2026","center":"Bokaro"},
   {"roll_no":10130,"roll_code":25033,"name":"VIVEK KUMAR MAHATO","father":"ANUJ KUMAR MAHATO","mother":"JURA DEVI","test":"Class 11 SUPER TEST 3","total":40,"marks":14,"percentage":"35%","rank":"na","remark":"try harder","date":"08-02-2026","center":"Bokaro"},
   {"roll_no":10127,"roll_code":25033,"name":"VIVEK SHARMA","father":"MAHAVIR SHARMA","mother":"SARITA DEVI","test":"Class 11 SUPER TEST 3","total":40,"marks":26,"percentage":"65%","rank":"na","remark":"try harder","date":"08-02-2026","center":"Bokaro"}
-];
+
+  ];
 
     function searchResult() {
       const rollNo = document.getElementById('rollNo').value.trim();
@@ -226,12 +227,12 @@
       document.getElementById('mother').textContent = student.mother;
       document.getElementById('rno').textContent = student.roll_no;
       document.getElementById('rcode').textContent = student.roll_code;
-      document.getElementById('testname').textContent = student.test_name;
-      document.getElementById('totalmarks').textContent = student.total_marks;
-      document.getElementById('marks').textContent = student.marks_obtained;
+      document.getElementById('testname').textContent = student.test;
+      document.getElementById('totalmarks').textContent = student.total;
+      document.getElementById('marks').textContent = student.marks;
       document.getElementById('percent').textContent = student.percentage;
       document.getElementById('rank').textContent = student.rank;
-      document.getElementById('remarks').textContent = student.remarks;
+      document.getElementById('remarks').textContent = student.remark;
       document.getElementById('date').textContent = student.date;
       document.getElementById('place').textContent = student.place;
 
